@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from datetime import datetime, timedelta
 # Create your models here.
 class Evento(models.Model):
     titulo = models.CharField(max_length= 100, verbose_name='Título')
@@ -14,3 +14,12 @@ class Evento(models.Model):
 
     def __str__(self):
         return self.titulo
+
+    def get_data_evento(self):
+        return self.data_evento.strftime('%d/%m/%Y %H:%M')
+
+    def get_evento_atrasado(self):
+        if self.data_evento < datetime.now():
+            return True
+        else:
+            return False
